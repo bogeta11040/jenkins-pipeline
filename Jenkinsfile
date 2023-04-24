@@ -54,7 +54,6 @@ triggers {
                         sh 'aws s3 sync /var/www/html/app s3://todoapp-bogeta-dev --delete'
                     }
             }
-        }
 
         stage('Deploy to Test') {
             steps {
@@ -79,3 +78,4 @@ triggers {
         }
     }
 }
+        }
