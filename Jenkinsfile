@@ -14,7 +14,7 @@ triggers {
                 // Checkout the code and build the application
                 sh "sudo yum -y install httpd"
                 sh "sudo systemctl start httpd"
-                sh "sudo git clone https://github.com/bogeta11040/todolist-app.git /var/www/html/"
+                sh "sudo git clone https://github.com/bogeta11040/todolist-app.git /var/www/html/app"
 
             }
         }
