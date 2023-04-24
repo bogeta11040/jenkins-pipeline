@@ -56,6 +56,7 @@ triggers {
                       }
               }
           }
+        }
   
   stage('Deploy to Test') {
               steps {
