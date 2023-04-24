@@ -46,58 +46,60 @@ triggers {
             }
         }
 
+  
         stage('Deploy to Dev') {
-            steps {
-                // Deploy to the Dev environment
-                script {
-                    withAWS(region: 'eu-central-1', credentials: 'aws-jenkins') {
-                        sh 'aws s3 sync /var/www/html/app s3://todoapp-bogeta-dev --delete'
-                    }
-            }
-        }
+              steps {
+                  // Deploy to the Dev environment
+                  script {
+                      withAWS(region: 'eu-central-1', credentials: 'aws-jenkins') {
+                          sh 'aws s3 sync /var/www/html/app s3://todoapp-bogeta-dev --delete'
+                      }
+              }
+          }
+  
+  stage('Deploy to Test') {
+              steps {
+                  script {
+                      def proceed = true
+                      try {
+                          timeout(time: 20, unit: 'SECONDS') {
+                              input "Deploy to Test?"
+                          }
+                      } catch (err) {
+                          proceed = false
+                      }
+                      if(proceed) {
+                          script {
+                      withAWS(region: 'eu-central-1', credentials: 'aws-jenkins') {
+                          sh 'aws s3 sync /var/www/html/app s3://todoapp-bogeta-qa --delete'
+                      }
+                  }
+              }
+          }
+          }
+          }
+  
+     stage('Deploy to Prod') {
+              steps {
+                  script {
+                      def proceed = true
+                      try {
+                          timeout(time: 20, unit: 'SECONDS') {
+                              input message: 'Deploy to Production?', submitter: 'admin'
+                          }
+                      } catch (err) {
+                          proceed = false
+                      }
+                      if(proceed) {
+                          script {
+                      withAWS(region: 'eu-central-1', credentials: 'aws-jenkins') {
+                          sh 'aws s3 sync /var/www/html/app s3://todoapp-bogeta --delete'
+              }
+          }
+          }
+          }
+  }
+  }    
 
-stage('Deploy to Test') {
-            steps {
-                script {
-                    def proceed = true
-                    try {
-                        timeout(time: 20, unit: 'SECONDS') {
-                            input "Deploy to Test?"
-                        }
-                    } catch (err) {
-                        proceed = false
-                    }
-                    if(proceed) {
-                        script {
-                    withAWS(region: 'eu-central-1', credentials: 'aws-jenkins') {
-                        sh 'aws s3 sync /var/www/html/app s3://todoapp-bogeta-qa --delete'
-                    }
-                    }
-                }
-            }
-        }
 
-   stage('Deploy to Prod') {
-            steps {
-                script {
-                    def proceed = true
-                    try {
-                        timeout(time: 20, unit: 'SECONDS') {
-                            input message: 'Deploy to Production?', submitter: 'admin'
-                        }
-                    } catch (err) {
-                        proceed = false
-                    }
-                    if(proceed) {
-                        script {
-                    withAWS(region: 'eu-central-1', credentials: 'aws-jenkins') {
-                        sh 'aws s3 sync /var/www/html/app s3://todoapp-bogeta --delete'
-                    }
-                    }
-                }
-            }
-        }
-
-
-    }
 }
