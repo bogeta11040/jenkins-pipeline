@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-    triggers {
+triggers {
         // "GitHub hook trigger for GITScm polling" build trigger
         githubPush()
         // Run the build at midnight UTC time
@@ -9,7 +9,7 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
+      stage('Checkout') {
             steps {
                 // Checkout the code and build the application
                 sh "sudo yum -y install httpd"
@@ -18,6 +18,7 @@ pipeline {
 
             }
         }
+
         stage('Unit Test') {
             steps {
                 // Run the unit tests
@@ -44,16 +45,36 @@ pipeline {
                 //}
             }
         }
-        stage('Deploy') {
+
+        stage('Deploy to Dev') {
             steps {
-                // Deploy the application to S3 bucket
-                // Get AWS credentials
-                echo "deploy"
+                // Deploy to the Dev environment
+                script {
+                    withAWS(region: 'eu-central-1', credentials: 'aws-jenkins') {
+                        sh 'aws s3 sync /var/www/html/app s3://todoapp-bogeta-dev --delete'
+                    }
+            }
+        }
+
+        stage('Deploy to Test') {
+            steps {
+                // Manually deploy to Test environment
+                input "Deploy to Test?"
+                script {
+                    withAWS(region: 'eu-central-1', credentials: 'aws-jenkins') {
+                        sh 'aws s3 sync /var/www/html/app s3://todoapp-bogeta-qa --delete'
+                    }
+            }
+        }
+
+        stage('Deploy to Prod') {
+            steps {
+                // Promote the release from Test to Production environment
+                input message: 'Deploy to Production?', submitter: 'admin'
                 script {
                     withAWS(region: 'eu-central-1', credentials: 'aws-jenkins') {
                         sh 'aws s3 sync /var/www/html/app s3://todoapp-bogeta --delete'
                     }
-                }
             }
         }
     }
