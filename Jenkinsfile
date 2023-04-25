@@ -26,7 +26,7 @@ pipeline {
         }
       }
       steps {
-        node {
+        node('docker') {
           script {
           def app = docker.build('docker-image:latest', '-f Dockerfile .')
         }
