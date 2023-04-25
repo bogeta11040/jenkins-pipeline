@@ -1,5 +1,10 @@
 pipeline {
-  agent any
+  agent {
+        docker {
+            image 'docker-image:latest'
+            args '-p 8000:8000'
+        }
+    }
 
   triggers {
     // "GitHub hook trigger for GITScm polling" build trigger
