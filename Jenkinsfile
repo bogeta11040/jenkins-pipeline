@@ -14,6 +14,7 @@ pipeline {
         // Checkout the code and build the application
         sh "sudo git clone https://github.com/bogeta11040/todolist-app.git /usr/share/nginx/html"
         sh "sudo yum -y install docker"
+        sh "sudo systemctl enable docker.service"
         sh "sudo systemctl start docker"
       }
     }
