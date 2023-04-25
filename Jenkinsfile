@@ -1,10 +1,5 @@
 pipeline {
-  agent {
-        docker {
-            image 'docker-image:latest'
-            args '-p 8000:8000'
-        }
-    }
+  agent none
 
   triggers {
     // "GitHub hook trigger for GITScm polling" build trigger
@@ -23,14 +18,19 @@ pipeline {
       }
     }
     
-    stage('Build Docker image') {
-            steps {
-                script {
-                    def image = docker.build('docker-image:latest', '.')
-                   // image.push()
-                }
-            }
+   stage('Build Docker image') {
+      agent {
+        docker {
+          image 'docker:latest'
+          args '-v /var/run/docker.sock:/var/run/docker.sock'
         }
+      }
+      steps {
+        script {
+          def app = docker.build('docker-image:latest', '-f Dockerfile .')
+        }
+      }
+    }
 
     stage('Unit Test') {
       steps {
