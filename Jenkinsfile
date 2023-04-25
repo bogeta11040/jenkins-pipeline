@@ -22,6 +22,15 @@ pipeline {
         sh "sudo systemctl start docker"
       }
     }
+    
+    stage('Build Docker image') {
+            steps {
+                script {
+                    def image = docker.build('docker-image:latest', '.')
+                   // image.push()
+                }
+            }
+        }
 
     stage('Unit Test') {
       steps {
