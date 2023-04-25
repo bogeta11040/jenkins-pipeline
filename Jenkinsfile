@@ -29,6 +29,7 @@ pipeline {
       steps {
           script {
           def app = docker.build('docker-image:latest', '-f Dockerfile .')
+          sh "sudo docker run -p 8000:8000 -d docker-image:latest"
         }
       }
     }
