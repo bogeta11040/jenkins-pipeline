@@ -1,5 +1,5 @@
 pipeline {
-  agent none
+  agent any
 
   triggers {
     // "GitHub hook trigger for GITScm polling" build trigger
@@ -26,10 +26,8 @@ pipeline {
         }
       }
       steps {
-        node('docker') {
           script {
           def app = docker.build('docker-image:latest', '-f Dockerfile .')
-        }
         }
       }
     }
