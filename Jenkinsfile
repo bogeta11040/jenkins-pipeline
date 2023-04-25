@@ -18,7 +18,7 @@ pipeline {
       }
     }
     
-   stage('Build Docker image') {
+   stage('Build Docker Image') {
       agent {
         docker {
           image 'docker:latest'
@@ -26,8 +26,10 @@ pipeline {
         }
       }
       steps {
-        script {
+        node {
+          script {
           def app = docker.build('docker-image:latest', '-f Dockerfile .')
+        }
         }
       }
     }
