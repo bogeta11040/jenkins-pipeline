@@ -60,7 +60,7 @@ pipeline {
       }
     }
 
-    stage('Deploy to Test') {
+    stage('Deploy to Staging') {
       steps {
         script {
           def proceed = true
@@ -74,7 +74,7 @@ pipeline {
           if (proceed) {
             script {
               withAWS(region: 'eu-central-1', credentials: 'aws-jenkins') {
-                sh 'aws s3 sync /var/www/html s3://todoapp-bogeta-qa --delete'
+                sh 'aws s3 sync /var/www/html s3://todoapp-bogeta-uat --delete'
               }
             }
           }
