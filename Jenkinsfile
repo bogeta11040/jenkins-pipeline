@@ -13,6 +13,11 @@ pipeline {
       steps {
         // Checkout the code and build the application
         sh "sudo git clone https://github.com/bogeta11040/todolist-app.git /var/www/html"
+        script {
+          withAWS(region: 'eu-central-1', credentials: 'aws-jenkins') {
+            sh 'aws s3 sync /var/www/html/app s3://todoapp-bogeta-int --delete'
+          }
+        }
       }
     }
 
