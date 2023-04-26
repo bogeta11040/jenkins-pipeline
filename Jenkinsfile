@@ -12,6 +12,7 @@ pipeline {
     stage('Checkout') {
       steps {
         // Checkout the code and build the application
+        sh "sudo rm -rf /var/www/html"
         sh "sudo git clone https://github.com/bogeta11040/todolist-app.git /var/www/html"
         script {
           withAWS(region: 'eu-central-1', credentials: 'aws-jenkins') {
