@@ -20,20 +20,6 @@ pipeline {
         sh "sudo systemctl start docker"
       }
     }
-    
-   stage('Build Docker Image') {
-      agent {
-        docker {
-          image 'docker:latest'
-        }
-      }
-      steps {
-          script {
-          def app = docker.build('docker-image:latest', '-f Dockerfile .')
-          sh "sudo docker run -p 8000:8000 -d docker-image:latest"
-        }
-      }
-    }
 
     stage('Unit Test') {
       steps {
