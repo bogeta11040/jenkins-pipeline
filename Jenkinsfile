@@ -96,7 +96,7 @@ pipeline {
           if (proceed) {
             script {
               withAWS(region: 'eu-central-1', credentials: 'aws-jenkins') {
-                sh 'aws s3 sync /var/www/html/app s3://todoapp-bogeta --delete'
+                sh 'aws s3 sync /var/www/html s3://todoapp-bogeta --delete'
               }
             }
           }
