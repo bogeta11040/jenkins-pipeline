@@ -36,7 +36,7 @@ pipeline {
         echo "integration"
       }
     }
-    stage('SonarQube') {
+    stage('Code Coverage Analysis') {
       steps {
         // Set up SonarQube environment variables
         //withSonarQubeEnv('My SonarQube Server') {
