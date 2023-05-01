@@ -38,12 +38,14 @@ pipeline {
     }
     stage('Code Coverage Analysis') {
       steps {
+        script {
         // Set up SonarQube environment variables
         def scannerHome = tool 'sqscanner';
         withSonarQubeEnv('sonarqube-server') {
         // Run SonarQube analysis and coverage checks
         sh '${scannerHome}/bin/sonar-scanner'
         echo "SonarQube"
+        }
         }
       }
     }
