@@ -39,9 +39,10 @@ pipeline {
     stage('Code Coverage Analysis') {
       steps {
         // Set up SonarQube environment variables
+        def scannerHome = tool 'sqscanner';
         withSonarQubeEnv('sonarqube-server') {
         // Run SonarQube analysis and coverage checks
-               sh 'sonar-scanner'
+        sh '${scannerHome}/bin/sonar-scanner'
         echo "SonarQube"
         }
       }
