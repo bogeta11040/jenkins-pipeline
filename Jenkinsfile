@@ -41,9 +41,7 @@ pipeline {
         // Set up SonarQube environment variables
         withSonarQubeEnv('sonarqube-server') {
         // Run SonarQube analysis and coverage checks
-            withSonarQubeScanner {
                sh 'sonar-scanner'
-          }
         echo "SonarQube"
         }
       }
