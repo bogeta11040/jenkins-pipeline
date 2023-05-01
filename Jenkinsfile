@@ -39,13 +39,13 @@ pipeline {
     stage('Code Coverage Analysis') {
       steps {
         // Set up SonarQube environment variables
-        //withSonarQubeEnv('My SonarQube Server') {
+        withSonarQubeEnv('sonarqube-server') {
         // Run SonarQube analysis and coverage checks
-        //    withSonarQubeScanner {
-        //       sh 'sonar-scanner'
-        //   }
+            withSonarQubeScanner {
+               sh 'sonar-scanner'
+          }
         echo "SonarQube"
-        //}
+        }
       }
     }
 
