@@ -22,6 +22,18 @@ pipeline {
       }
     }
 
+    stage('SonarQube') {
+      steps {
+        script {
+        def scannerHome = tool 'sqscanner';
+        withSonarQubeEnv() {
+        sh 'sudo ${scannerHome}/bin/sonar-scanner'
+        echo "SonarQube"
+        }
+        }
+      }
+    }
+    
     stage('Unit Test') {
       steps {
         // Run the unit tests
@@ -36,18 +48,7 @@ pipeline {
         echo "integration"
       }
     }
-    stage('Code Coverage Analysis') {
-      steps {
-        script {
-        def scannerHome = tool 'sqscanner';
-        withSonarQubeEnv() {
-        // Run SonarQube analysis and coverage checks
-        sh '${scannerHome}/bin/sonar-scanner'
-        echo "SonarQube"
-        }
-        }
-      }
-    }
+
 
     stage('Deploy to Dev') {
       steps {
