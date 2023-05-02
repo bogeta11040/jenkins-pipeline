@@ -26,9 +26,7 @@ pipeline {
       steps {
         script {
           withSonarQubeEnv('sqserver') {
-            environment {
-                SCANNER_HOME = tool 'sqscanner'
-            }
+                def SCANNER_HOME = tool 'sqscanner'
             // Start the SonarQube server
             sh" ${SCANNER_HOME}}/bin/sonar-scanner \
                     -Dsonar.projectKey=todoapp \
