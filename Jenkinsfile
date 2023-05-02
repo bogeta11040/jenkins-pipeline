@@ -28,7 +28,7 @@ pipeline {
           withSonarQubeEnv('sqserver') {
                 def SCANNER_HOME = tool 'sqscanner'
             // Start the SonarQube server
-            sh" ${SCANNER_HOME}}/bin/sonar-scanner \
+            sh" ${SCANNER_HOME}/bin/sonar-scanner \
                     -Dsonar.projectKey=todoapp \
                     -Dsonar.sources=. "
             echo "SonarQube server started"
