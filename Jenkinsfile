@@ -32,9 +32,6 @@ pipeline {
                     -Dsonar.projectKey=todoapp \
                     -Dsonar.sources=. "
             echo "SonarQube server started"
-            // Analyze the code
-            sh 'mvn sonar:sonar'
-            echo "Code analysis complete"
             // Stop the SonarQube server
             sh '/opt/sonarqube/bin/linux-x86-64/sonar.sh stop'
             echo "SonarQube server stopped"
