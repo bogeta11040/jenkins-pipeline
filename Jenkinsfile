@@ -27,13 +27,13 @@ pipeline {
         script {
           withSonarQubeEnv('sqscanner') {
             // Start the SonarQube server
-            sh '/opt/sonarqube/bin/linux-x86-64/sonar.sh start'
+            sh 'sudo /opt/sonarqube/bin/linux-x86-64/sonar.sh start'
             echo "SonarQube server started"
             // Analyze the code
-            sh 'mvn sonar:sonar'
+            sh 'sudo mvn sonar:sonar'
             echo "Code analysis complete"
             // Stop the SonarQube server
-            sh '/opt/sonarqube/bin/linux-x86-64/sonar.sh stop'
+            sh 'sudo /opt/sonarqube/bin/linux-x86-64/sonar.sh stop'
             echo "SonarQube server stopped"
           }
         }
