@@ -28,6 +28,7 @@ pipeline {
           withSonarQubeEnv('sqscanner') {
             // Start the SonarQube server
             sh 'sudo /opt/sonarqube/bin/linux-x86-64/sonar.sh start'
+            sh "sonar-scanner -Dsonar.analysis.mode=preview -Dsonar.login=ea2512829d76e6a201bf268e0ee75c5ba5e4bcbf -Dsonar.host.url=http://ec2-18-184-4-122.eu-central-1.compute.amazonaws.com:9100/ -Dsonar.projectName=todoapp -Dsonar.sources=."
             echo "SonarQube server started"
             // Analyze the code
             sh 'sudo mvn sonar:sonar'
