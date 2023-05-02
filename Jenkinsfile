@@ -22,13 +22,20 @@ pipeline {
       }
     }
 
-    stage('SonarQube') {
+   stage('SonarQube') {
       steps {
         script {
-        withSonarQubeEnv('sqscanner') {
-        sh 'sudo opt/sonarqube/bin/linux-x84-64/sonar.sh start'
-        echo "SonarQube"
-        }
+          withSonarQubeEnv('sqscanner') {
+            // Start the SonarQube server
+            sh '/opt/sonarqube/bin/linux-x86-64/sonar.sh start'
+            echo "SonarQube server started"
+            // Analyze the code
+            sh 'mvn sonar:sonar'
+            echo "Code analysis complete"
+            // Stop the SonarQube server
+            sh '/opt/sonarqube/bin/linux-x86-64/sonar.sh stop'
+            echo "SonarQube server stopped"
+          }
         }
       }
     }
