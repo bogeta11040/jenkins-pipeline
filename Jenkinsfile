@@ -25,15 +25,20 @@ pipeline {
    stage('SonarQube') {
       steps {
         script {
-          withSonarQubeEnv('sqscanner') {
+          withSonarQubeEnv('sqserver') {
+            environment {
+                SCANNER_HOME = tool 'sqscanner'
+            }
             // Start the SonarQube server
-            sh 'sudo /opt/sonarqube/bin/linux-x86-64/sonar.sh start'
+            sh" ${SCANNER_HOME}}/bin/sonar-scanner \
+                    -Dsonar.projectKey=todoapp \
+                    -Dsonar.sources=. "
             echo "SonarQube server started"
             // Analyze the code
-            sh 'sudo mvn sonar:sonar'
+            sh 'mvn sonar:sonar'
             echo "Code analysis complete"
             // Stop the SonarQube server
-            sh 'sudo /opt/sonarqube/bin/linux-x86-64/sonar.sh stop'
+            sh '/opt/sonarqube/bin/linux-x86-64/sonar.sh stop'
             echo "SonarQube server stopped"
           }
         }
