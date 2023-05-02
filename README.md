@@ -1,4 +1,4 @@
-VIDEO
+[![Watch on Youtube](https://raw.githubusercontent.com/bogeta11040/docs/main/docs/jenkinsvid.jpg)](https://youtu.be/7QIVqJQpv6k)
 
 ## Workflow
 
@@ -20,7 +20,7 @@ VIDEO
 
 ## Note
 
-For this exercise, I used a simple JavaScript To-Do app that I built several years ago. Since it only consists of JS/HTML/CSS and doesn't require Node.js, we were able to perform a code checkout by cloning the existing GitHub repository without any additional build commands. We hosted Jenkins on an AWS EC2 instance running CentOS, and our testing stages included both unit and integration tests. Additionally, we deployed the app to an S3 bucket in AWS. We configured GitHub WebHooks to trigger the job, which only begins deployment upon successful integration test confirmation. Throughout this exercise, I gained valuable knowledge about configuring Jenkins, working with loggers, webhooks, code analysis tools, build agents, Linux, and Cloud services.
+For this exercise, I used [simple JavaScript To-Do app](https://github.com/bogeta11040/todolist-app) that I built several years ago. Since it only consists of JS/HTML/CSS and doesn't require Node.js, we were able to perform a code checkout by cloning the existing GitHub repository without any additional build commands. We hosted Jenkins on an AWS EC2 instance running CentOS, and our testing stages included both unit and integration tests. Additionally, we deployed the app to an S3 bucket in AWS. We configured GitHub WebHooks to trigger the job, which only begins deployment upon successful integration test confirmation. Throughout this exercise, I gained valuable knowledge about configuring Jenkins, working with loggers, webhooks, code analysis tools, build agents, Linux, and Cloud services.
 
 ## Pipeline script
 
