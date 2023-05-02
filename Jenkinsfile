@@ -25,8 +25,7 @@ pipeline {
     stage('SonarQube') {
       steps {
         script {
-        def scannerHome = tool 'sqscanner';
-        withSonarQubeEnv() {
+        withSonarQubeEnv('sqscanner') {
         sh 'sudo opt/sonarqube/bin/linux-x84-64/sonar.sh start'
         echo "SonarQube"
         }
