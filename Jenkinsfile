@@ -22,13 +22,13 @@ pipeline {
       }
     }
 
-   stage('SonarQube') {
+    stage('SonarQube') {
       steps {
         script {
           withSonarQubeEnv('sqserver') {
-                def SCANNER_HOME = tool 'sqscanner'
+            def SCANNER_HOME = tool 'sqscanner'
             // Start the SonarQube server
-            sh" ${SCANNER_HOME}/bin/sonar-scanner \
+            sh " ${SCANNER_HOME}/bin/sonar-scanner \
                     -Dsonar.projectKey=todoapp \
                     -Dsonar.sources=. "
             echo "SonarQube server started"
@@ -39,7 +39,7 @@ pipeline {
         }
       }
     }
-    
+
     stage('Unit Test') {
       steps {
         // Run the unit tests
@@ -54,7 +54,6 @@ pipeline {
         echo "integration"
       }
     }
-
 
     stage('Deploy to Dev') {
       steps {
