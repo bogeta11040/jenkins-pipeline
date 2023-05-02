@@ -33,7 +33,7 @@ pipeline {
                     -Dsonar.sources=. "
             echo "SonarQube server started"
             // Stop the SonarQube server
-            sh '/opt/sonarqube/bin/linux-x86-64/sonar.sh stop'
+            sh 'sudo /opt/sonarqube/bin/linux-x86-64/sonar.sh stop'
             echo "SonarQube server stopped"
           }
         }
